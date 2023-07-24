@@ -4,8 +4,9 @@ const bodyParser=require('body-parser');
 const postRoute=require('./route/Post');
 const cors=require('cors')
 const app=express();
-const uri=process.env.MONGODB_URI;
 
+const uri=process.env.MONGODB_URI;
+mongoose.set('strictQuery',false);
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
@@ -16,9 +17,7 @@ mongoose
   });
 
   app.use(cors());
-
   app.use(bodyParser.json());
-
   app.use('/',postRoute)
 
 app.listen(3000,()=>{
